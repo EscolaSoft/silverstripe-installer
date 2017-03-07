@@ -20,7 +20,11 @@
 	"require-dev": {
 		"phpunit/PHPUnit": "~4.8"
 	},
+	"extra": {
+	},
 	"config": {
 		"process-timeout": 600
-	}
+	},
+	"prefer-stable": true,
+	"minimum-stability": "dev"
 }
