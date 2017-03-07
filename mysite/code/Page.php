@@ -38,4 +38,8 @@ class Page_Controller extends ContentController {
 		// See: https://docs.silverstripe.org/en/developer_guides/templates/requirements/
 	}
 
+	public function isDev() {
+	  return Director::isDev();
+  }
+
 }
