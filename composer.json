@@ -20,11 +20,6 @@
 	"require-dev": {
 		"phpunit/PHPUnit": "~4.8"
 	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "3.x-dev"
-		}
-	},
 	"config": {
 		"process-timeout": 600
 	}
