@@ -1,0 +1,34 @@
+{
+	"name": "qunabu/silverstripe-installer",
+	"description": "Qunabu. The SilverStripe Framework Installer",
+	"require": {
+		"php": ">=5.5.0",
+		"silverstripe/cms": "3.x-dev",
+		"silverstripe/framework": "3.x-dev",
+		"silverstripe/reports": "3.x-dev",
+		"silverstripe/siteconfig": "3.x-dev",
+		"qunabu/silverstripe-theme":"dev-master",
+		"qunabu/silverstripe-htmlblocks":"dev-master",
+		"colymba/gridfield-bulk-editing-tools": "2.1.x-dev",
+		"undefinedoffset/sortablegridfield": "^0.6.5",
+		"silverstripe/userforms": "^4.2",
+		"silverstripe/tagfield": "^1.3",
+		"silverstripe/gridfield-addons": "dev-master",
+		"silverstripe-australia/gridfieldextensions": "^1.4",
+		"markguinn/silverstripe-email-helpers": "1.0.x-dev",
+		"unclecheese/betterbuttons": "^1.3"
+	},
+	"require-dev": {
+		"phpunit/PHPUnit": "~4.8"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "3.x-dev"
+		}
+	},
+	"config": {
+		"process-timeout": 600
+	},
+	"prefer-stable": true,
+	"minimum-stability": "dev"
+}
