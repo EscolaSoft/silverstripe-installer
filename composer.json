@@ -25,6 +25,6 @@
 	"config": {
 		"process-timeout": 600
 	},
-	"prefer-stable": true,
+	"prefer-stable": false,
 	"minimum-stability": "dev"
 }
