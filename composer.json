@@ -27,5 +27,6 @@
 		"process-timeout": 600
 	},
 	"prefer-stable": false,
+	"prefer-dist": true,
 	"minimum-stability": "dev"
 }
