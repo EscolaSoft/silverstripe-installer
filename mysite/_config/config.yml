@@ -11,3 +11,10 @@ SSViewer:
   theme: 'qunabu'
 Debug:
   friendly_error_httpcode: true
+MySQLDatabase:
+  # You are advised to backup your tables if changing settings on an existing database
+  # `connection_charset` and `charset` should be equal, similarly so should `connection_collation` and `collation`
+  connection_charset: utf8
+  connection_collation: utf8_polish_ci
+  charset: utf8
+  collation: utf8_polish_ci
