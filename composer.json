@@ -10,6 +10,7 @@
 		"silverstripe-themes/simple": "3.1.*",
 		"qunabu/silverstripe-theme":"dev-master",
 		"qunabu/silverstripe-htmlblocks":"dev-master",
+		"qunabu/silverstripe-backuper":"dev-master",
 		"colymba/gridfield-bulk-editing-tools": "2.1.x-dev",
 		"undefinedoffset/sortablegridfield": "^0.6.5",
 		"silverstripe/userforms": "^4.2",
