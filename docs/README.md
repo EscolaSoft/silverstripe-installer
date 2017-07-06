@@ -14,13 +14,19 @@ Before installing first Qunabu SilverStripe Theme boilerplate please make sure a
 3. Setup a vhost that points to that folder. Configuration below is just fine
 ```
 <VirtualHost *:80>
-    DocumentRoot "/Users/qunabu/Desktop/localhost/PROJECT_NAME"
-    ServerName PROJECT_NAME.loc
+    DocumentRoot "/project-path/project-directory"
+    ServerName project_name.something
+    <Directory "/project-path/project-directory">
+        AllowOverride All
+        Order Allow,Deny
+        Allow from all
+        Require all granted
+    </Directory>
 </VirtualHost>
 ```
 4. Add vhost to `/etc/hosts/`
 ```
-127.0.0.1 PROJECT_NAME
+127.0.0.1 project_name.something
 ```
 
 # Installation
