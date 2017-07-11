@@ -3,10 +3,10 @@
 * https://www.silverstripe.org/learn/lessons/
 # Dependecies
 Before installing first Qunabu SilverStripe Theme boilerplate please make sure all dependecies listed belowe are installed on your machine. 
-* Node, npm 
-* Grunt and Gulp cli 
-* Composer 
-* Git client and git flow installed
+* Node.js, npm 
+* gulp cli 
+* composer 
+* git client and git flow installed
 
 # Before installation 
 1. Create an empty mysql database
@@ -83,8 +83,10 @@ All scripts that manipulates our page will be called from `Silverstripe.behavior
  All files placed in `javascript/lib` folder will be imported to the page in alphabetical order. To change order of loading files just rename them. 
 ### es6
  es6 is supported and should be placed only in `javascript/es6/entry.js` file which is an entry file for webpack. That file is translated by `webpack` and `babel` into `javascript/lib/Z_bundle.js` (prefix *Z_* means that file should be loaded as last in queue). To work with external files use [es6 import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import). 
- Example 
- `javascript/es6/entry.js`
+ 
+ #### Example 
+ 
+ File `javascript/es6/entry.js`
  
  ```javascript
  /** import sections */
@@ -94,7 +96,7 @@ All scripts that manipulates our page will be called from `Silverstripe.behavior
  window.SilverStripe.behaviors.Grid = new Grid();
  ```
  
- `javascript/es6/dev/grid.js`
+ File `javascript/es6/dev/grid.js`
  
  ```javascript
  export default class Grid {
