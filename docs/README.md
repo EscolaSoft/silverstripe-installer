@@ -229,7 +229,7 @@ todo
 ### UDF email for user 
 todo
 ### UDF custom fields validation 
-todo
+todo https://jqueryvalidation.org/
 ## Simple REST API for AJAX calls
 todo
 
