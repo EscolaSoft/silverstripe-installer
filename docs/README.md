@@ -15,7 +15,7 @@ Before installing first Qunabu SilverStripe Theme boilerplate please make sure a
 ```
 <VirtualHost *:80>
     DocumentRoot "/project-path/project-directory"
-    ServerName project_name.something
+    ServerName PROJECT_NAME.SOMETHING
     <Directory "/project-path/project-directory">
         AllowOverride All
         Order Allow,Deny
@@ -26,7 +26,7 @@ Before installing first Qunabu SilverStripe Theme boilerplate please make sure a
 ```
 4. Add vhost to `/etc/hosts/`
 ```
-127.0.0.1 project_name.something
+127.0.0.1 PROJECT_NAME.SOMETHING
 ```
 
 # Installation
@@ -38,8 +38,8 @@ cd PROJECT_NAME
 ```
 composer create-project -s dev qunabu/silverstripe-installer PROJECT_NAME
 ```
-3. Open `PROJECT_NAME.loc` in the browser and follow default installation steps.
-4. Once installed run task `dev/tasks/SetEnvironmentTask` by calling `http://PROJECT_NAME.loc/dev/tasks/SetEnvironmentTask`
+3. Open `http://PROJECT_NAME.something` in the browser and follow default installation steps.
+4. Once installed run task `dev/tasks/SetEnvironmentTask` by calling `http://PROJECT_NAME.something/dev/tasks/SetEnvironmentTask`
 This task moves mysite/_config.php settings to _ss_enviroment.php
 5. Create or copy project URL from qunabu gitlab git.qunabu.com. Likely url to you repository would be `git@git.qunabu.com:qunabuinteractive/PROJECT_NAME.git`
 6. Run following commands in main folder of your projects
