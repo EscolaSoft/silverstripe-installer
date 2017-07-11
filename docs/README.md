@@ -95,7 +95,7 @@ All scripts that manipulates our page will be called from `Silverstripe.behavior
 ### 3rd party libraries and `lib` folder 
  All files placed in `javascript/lib` folder will be imported to the page in alphabetical order. To change order of loading files just rename them. 
 ### es6
- es6 is supported and should be placed only in `javascript/es6/entry.js` file which is an entry file for webpack. That file is translated by `webpack` and `babel` into `javascript/lib/Z_bundle.js` (prefix *Z_* means that file should be loaded as last in queue). To work with external files use [es6 import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import). 
+ [ES6/ES2015](http://es6-features.org/) is supported and should be placed only in `javascript/es6/entry.js` file which is an entry file for webpack. That file is translated by `webpack` and `babel` into `javascript/lib/Z_bundle.js` (prefix *Z_* means that file should be loaded as last in queue). To work with external files use [es6 import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import). 
  
  #### Example 
  
