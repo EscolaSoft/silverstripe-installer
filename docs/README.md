@@ -86,7 +86,7 @@ All scripts that manipulates our page will be called from `Silverstripe.behavior
  ```javascript
  Silverstripe.behaviors.helloWorld = {
      attach: function (context, settings) {
-        console.log('hello world);
+        console.log('hello world');
        // Code to be run on page load, 
      }
    };
