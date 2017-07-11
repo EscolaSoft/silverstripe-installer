@@ -178,6 +178,8 @@ todo
 todo
 ## Live version (How to 100/100 Page Speed) 
 todo
+## .htaccess files to set caching flags
+todo
 ## Async loading of main js file 
 todo
 ## Preloader -  Css async loading 
