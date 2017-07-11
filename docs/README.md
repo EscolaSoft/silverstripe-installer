@@ -102,7 +102,7 @@ All scripts that manipulates our page will be called from `Silverstripe.behavior
  export default class Grid {
    constructor() {
      this.cols=12;
-     this. colClass="col-xs-1 col-sm-1 col-md-1";
+     this.colClass="col-xs-1 col-sm-1 col-md-1";
      this.colStyle = [
        'background:rgba(255,0,0,0.1); height:100%;',
        'background:rgba(0,0,255,0.1); height:100%;',
