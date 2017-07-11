@@ -163,9 +163,9 @@ define('SS_ENVIRONMENT_TYPE', 'live');
 you should call `gulp deploy-live` which call other `gulp` tasks
 
 * `es6` calls `webpack` to create `Z_bundle.js`
-* 'live-scripts' merge all files from `javascript/lib` into `javascript/live/scripts.js` and them minify it with `uglify` to `javascript/live/scripts.min.js`
-* 'sass' that compiles `sass/*.scss` into `css/*.css` files 
-* 'minify-css' that minifies `css/layout.css` to `css/layout.min.css`
+* `live-scripts` merge all files from `javascript/lib` into `javascript/live/scripts.js` and them minify it with `uglify` to `javascript/live/scripts.min.js`
+* `sass` that compiles `sass/*.scss` into `css/*.css` files 
+* `minify-css` that minifies `css/layout.css` to `css/layout.min.css`
 
 
 ## Async img loading (lazyload + svg placeholder)
