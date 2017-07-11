@@ -65,9 +65,94 @@ npm install
 > * every change from `*.sass` file will call `libsass` and compile `*.sass` to `*.css` and reload styles in the browser without refreshing. 
 3. Workflow is standard SilverStripe. There are some special features we try to put into every projects. 
 ## Javascript implementation. Silverstripe global object and behaviours 
-todo
+Qunabu has introduced several new techniques that allow you far greater flexibility and control in the scripts you can have on your SilverStripe site's pages.
+There is an global namespace `Silverstripe` which all our behaviours script shoule be places next to global settings for whole project. 
+### Silverstripe.behaviors
+All scripts that manipulates our page will be called from `Silverstripe.behaviors.attachAll` method which is called on `body` `DOMContentLoaded` event once page is loaded. To add your module just add an object that have `attach` method to `Silverstripe.behaviors` global object. 
+ Example
+ ```
+ Silverstripe.behaviors.helloWorld = {
+     attach: function (context, settings) {
+        console.log('hello world);
+       // Code to be run on page load, 
+     }
+   };
+ ```
+ Names of module should refer to it functionality. 
+### 3rd party libraries and `lib` folder 
+ All files placed in `javascript/lib` folder will be imported to the page in alphabetical order. To change order of loading files just rename them. 
+### es6
+ es6 is supported and should be placed only in `javascript/es6/entry.js` file which is an entry file for webpack. That file is translated by `webpack` and `babel` into `javascript/lib/Z_bundle.js` (prefix *Z_* means that file should be loaded as last in queue). To work with external files use [es6 import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import). 
+ Example 
+ `javascript/es6/entry.js`
+ 
+ ```javascript
+ /** import sections */
+ import Grid from './dev/grid';
+ 
+ /** attaching behaviors to global object */
+ window.SilverStripe.behaviors.Grid = new Grid();
+ ```
+ 
+ `javascript/es6/dev/grid.js`
+ 
+ ```javascript
+ export default class Grid {
+   constructor() {
+     this.cols=12;
+     this. colClass="col-xs-1 col-sm-1 col-md-1";
+     this.colStyle = [
+       'background:rgba(255,0,0,0.1); height:100%;',
+       'background:rgba(0,0,255,0.1); height:100%;',
+       '1px solid rgba(0,0,0,0.2)'
+     ];
+     this.onStage=false;
+   }
+   attach() {
+     var self = this;
+     window.addEventListener('keydown', function(e) {
+       if (e.key=='g') {
+         self.toggleGrid()
+       }
+     })
+   }
+   toggleGrid() {
+     if (this.onStage) {
+       document.querySelector('.grid-helper').parentNode.removeChild(document.querySelector('.grid-helper'));
+     } else {
+       var html = "<div class='grid-helper' style='z-index: 999; width:100%; height: 100%; position:fixed; left:0; top:0;'>";
+       html += "<div class='container' style='height:100%;'>";
+       html += "<div class='row' style='height:100%;'>"
+       for (var i = 1; i <= this.cols; i++) {
+         var border_style = i == 1 ?  'border-right:' + this.colStyle[2] + ';border-left:' + this.colStyle[2] : 'border-right:' + this.colStyle[2];
+         html += "<div class='" + this.colClass + "' style=' " + border_style + " '><div class='column' style='" + ( this.colStyle[i % 2]) + "'></div></div>";
+       }
+       html += "</div></div></div>";
+       document.body.insertAdjacentHTML('beforeend', html);
+     }
+     this.onStage = !this.onStage;
+   }
+ }
+
+ ```
+ 
 ## Dev / Live versions 
-todo
+When switching flag to live version on `_ss_environment.php` to `LIVE`
+
+```php
+<?php
+/* What kind of environment is this: development, test, or live (ie, production)? */
+define('SS_ENVIRONMENT_TYPE', 'live');
+```
+
+you should call `gulp deploy-live` which call other `gulp` tasks
+
+* `es6` calls `webpack` to create `Z_bundle.js`
+* 'live-scripts' merge all files from `javascript/lib` into `javascript/live/scripts.js` and them minify it with `uglify` to `javascript/live/scripts.min.js`
+* 'sass' that compiles `sass/*.scss` into `css/*.css` files 
+* 'minify-css' that minifies `css/layout.css` to `css/layout.min.css`
+
+
 ## Async img loading (lazyload + svg placeholder)
 todo
 ### Dominant image (Qunabu Helpers)
