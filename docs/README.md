@@ -10,7 +10,7 @@ Before installing first Qunabu SilverStripe Theme boilerplate please make sure a
 
 # Before installation 
 1. Create an empty mysql database
-2. Create an empty folder PROJECT_NAME where project is stored 
+2. Create an empty folder `PROJECT_NAME` where project is stored 
 3. Setup a vhost that points to that folder. Configuration below is just fine
 
 ```
