@@ -188,11 +188,16 @@ todo
 todo
 ## Grid and grid helpers 
 todo
-## SCSS structure
+## SCSS
+libsass 
+### structure
 todo
+### responsive vars and mixins
+todo 
 ## Fluid vars (https://www.smashingmagazine.com/2016/05/fluid-typography/) 
 todo
-
+## Styling login form 
+todo
 # Additional modules 
 ## Backuper
 todo
@@ -219,7 +224,6 @@ todo
 todo
 ### Image extenstion (Dominant color)
 todo
-
 # Gitlab pipeline 
 ## Pipeline
 todo
