@@ -77,7 +77,7 @@ npm install
 3. Workflow is standard SilverStripe. There are some special features we try to put into every projects. 
 ## Javascript implementation. Silverstripe global object and behaviours 
 Qunabu has introduced several new techniques that allow you far greater flexibility and control in the scripts you can have on your SilverStripe site's pages.
-There is an global namespace `Silverstripe` which all our behaviours script shoule be places next to global settings for whole project. 
+There is an global namespace `Silverstripe` which all our behaviours script should be placed next to global settings for whole project. 
 ### Silverstripe.behaviors
 All scripts that manipulates our page will be called from `Silverstripe.behaviors.attachAll` method which is called on `body` `DOMContentLoaded` event once page is loaded. To add your module just add an object that have `attach` method to `Silverstripe.behaviors` global object. 
  
@@ -154,7 +154,7 @@ export default Grid;
  ```
  
 ## Dev / Live versions 
-When switching flag to live version on `_ss_environment.php` to `LIVE`
+Switching flag to live version in file `_ss_environment.php` makes website "live"
 
 ```php
 <?php
@@ -162,13 +162,25 @@ When switching flag to live version on `_ss_environment.php` to `LIVE`
 define('SS_ENVIRONMENT_TYPE', 'live');
 ```
 
-you should call `gulp deploy-live` which call other `gulp` tasks
+you should call `gulp deploy-live` which calls other `gulp` tasks
 
 * `es6` calls `webpack` to create `Z_bundle.js`
 * `live-scripts` merge all files from `javascript/lib` into `javascript/live/scripts.js` and them minify it with `uglify` to `javascript/live/scripts.min.js`
 * `sass` that compiles `sass/*.scss` into `css/*.css` files 
 * `minify-css` that minifies `css/layout.css` to `css/layout.min.css`
 
+Once site is in `LIVE` mode css and js files are loaded asynchroniusly. Look at the following code 
+
+```
+<script>
+  window.SilverStripe.loadScript(["{$ThemeDir}/javascript/live/scripts.min.js", "{$ThemeDir}/css/layout.min.css"], function() {
+    //console.log('all loaded');
+    SilverStripe.behaviors.init(); // Calls all behaviors attach method
+  } )
+</script>
+```
+
+which loades all essential JavaScript and StyleSheets. Before that event preloader should be visible and once `layout.min.css` is loaded preloader should fade out. All of codes above are part of boilerplate (in `{$ThemeDir}/templates/Includes/JavaScript`).
 
 ## Async img loading (lazyload + svg placeholder)
 todo
