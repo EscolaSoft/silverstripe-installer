@@ -154,6 +154,9 @@ export default Grid;
  ```
  
 ## Dev / Live versions 
+
+Dev is default mode when developing website. Once everything is ready to publish website should be swtiched to "live", which is crutial part of making website work fast. 
+
 Switching flag to live version in file `_ss_environment.php` makes website "live"
 
 ```php
@@ -183,7 +186,22 @@ Once site is in `LIVE` mode css and js files are loaded asynchroniusly. Look at 
 which loades all essential JavaScript and StyleSheets. Before that event preloader should be visible and once `layout.min.css` is loaded preloader should fade out. All of codes above are part of boilerplate (in `{$ThemeDir}/templates/Includes/JavaScript`).
 
 ## Async img loading (lazyload + svg placeholder)
-todo
+
+[lazysizes](https://github.com/aFarkas/lazysizes) is chosen library for asynchronius image loading with support of `src-set` retina ready images. Most of images should be served in that way. This libarary is part of boilerplace and it is included bu default. 
+ 
+Example in template `.ss` file 
+
+```html
+<!-- responsive example with automatic sizes calculation: -->
+<%-- $Image is Image Object from the Controller
+<img
+    data-sizes="auto"
+    data-src="{$Image.URL}"
+    data-srcset="{$Image.setWidth(300).URL} 300w,
+    {$Image.setWidth(600).URL} 600w,
+    {$Image.setWidth(900).URL}g 900w" class="lazyload" />
+```
+
 ### Dominant image (Qunabu Helpers)
 todo
 ## Preloader (hidden in dev) 
