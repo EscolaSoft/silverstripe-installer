@@ -187,6 +187,8 @@ which loades all essential JavaScript and StyleSheets. Before that event preload
 
 ## Async img loading (lazyload + svg placeholder)
 
+### Lazyloading, lazysizes
+
 [lazysizes](https://github.com/aFarkas/lazysizes) is chosen library for asynchronius image loading with support of `src-set` retina ready images. Most of images should be served in that way. This libarary is part of boilerplace and it is included bu default. 
  
 Example in template `.ss` file 
@@ -201,6 +203,18 @@ Example in template `.ss` file
     {$Image.setWidth(600).URL} 600w,
     {$Image.setWidth(900).URL}g 900w" class="lazyload" />
 ```
+
+### SVG placeholder technique 
+
+The following technique shows `svg` rectangle in the same ratio as an image before it is loaded 
+
+```html
+<!-- responsive example with automatic sizes calculation: -->
+<%-- $Image is Image Object from the Controller
+<img data-src="{$Image.URL}" class="lazyload" />
+```
+
+FIXME - not finished
 
 ### Dominant image (Qunabu Helpers)
 todo
