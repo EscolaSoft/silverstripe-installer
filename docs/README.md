@@ -155,7 +155,7 @@ export default Grid;
  
 ## Dev / Live versions 
 
-Dev is default mode when developing website. Once everything is ready to publish website should be swtiched to "live", which is crutial part of making website work fast. 
+Dev is default mode when developing website. Once everything is ready to publish website should be switched to "live", which is crutial part of making website work fast. 
 
 Switching flag to live version in file `_ss_environment.php` makes website "live"
 
@@ -209,16 +209,106 @@ Example in template `.ss` file
 The following technique shows `svg` rectangle in the same ratio as an image before it is loaded 
 
 ```html
-<!-- responsive example with automatic sizes calculation: -->
 <%-- $Image is Image Object from the Controller
-<img data-src="{$Image.URL}" class="lazyload" />
+<div class="img">
+  <img data-src="{$Image.URL}" class="lazyload" />
+  <svg>
+  	<rect width="{$Image.Width}" height="{$Image.Height}"/>
+  </svg>
+</div>
+<style>
+div.img {
+  position:relative;
+}
+div.img img {
+  position:absolute:
+  z-index:10;
+  width:100%;
+  height:auto;
+  left:0;
+  top:0;
+}
+div.img svg {
+  position:realtive;
+  z-index:9;
+  width:100%;
+  height:auto;
+}
+</style>
 ```
 
-FIXME - not finished
+*Note* that there is a bug with `SVG` `height:auto;` in Safari. 
 
-### Dominant image (Qunabu Helpers)
-todo
+### Dominant Color (Qunabu Helpers)
+
+Qunabu Helpers introduce Dominant Color Image extenstion which returns main color of image. Given exaple above, placeholder technique with this extenstion would change one line of `SVG` definition to 
+
+```html
+  <rect width="{$Image.Width}" height="{$Image.Height}" style="fill:{$Image.DominantColor}/>
+```
+
 ## Preloader (hidden in dev) 
+
+Straight forward technique of showing preloader 
+
+* preloader is defined and shown as inline css inside `<meta>` 
+* preloader is hidden in `layout.css` one it is loaded before end of '</body>'
+
+This technique is built-in boilerplate. 
+
+Example 
+
+```html
+<!-- Page.ss -->
+<html>
+<meta>
+<style type="text/css">
+  #main-loader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    z-index: 9998;
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-transition: opacity 0.35s ease-out, visibility 0.35s linear;
+    transition: opacity 0.35s ease-out, visibility 0.35s linear;
+    visibility: visible;
+    will-change: opacity; }
+  #main-loader:after {
+    content: 'loading'; }
+</style>
+</meta>
+<body>
+<div id="main-loader"></div>
+<script>
+  window.SilverStripe.loadScript(["{$ThemeDir}/javascript/live/scripts.min.js", "{$ThemeDir}/css/layout.min.css"], function() {
+    //console.log('all loaded');
+    SilverStripe.behaviors.init(); // Calls all behaviors attach method
+  } )
+</script>
+</body>
+</html>
+```
+
+```css
+/* layout.css */
+#main-loader {
+  visibility: hidden;
+  opacity: 0; }
+```
+
+In this technique preloader is only visible in `live` mode, in `dev` mode all scripts and styles are loaded at once.   
+
 todo
 ## Live version (How to 100/100 Page Speed) 
 todo
