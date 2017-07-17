@@ -187,7 +187,7 @@ which loades all essential JavaScript and StyleSheets. Before that event preload
 
 ## Async img loading (lazyload + svg placeholder)
 
-### Lazyloading, lazysizes
+### Responsive Images `srcset`, lazy loading and `lazysizes`
 
 [lazysizes](https://github.com/aFarkas/lazysizes) is chosen library for asynchronius image loading with support of `src-set` retina ready images. Most of images should be served in that way. This libarary is part of boilerplace and it is included bu default. 
  
