@@ -309,15 +309,48 @@ Example
 
 In this technique preloader is only visible in `live` mode, in `dev` mode all scripts and styles are loaded at once.   
 
-todo
 ## Live version (How to 100/100 Page Speed) 
-todo
+To get sitespeed at hightest level except of techniques above there are some additional ones below. 
 ## .htaccess files to set caching flags
-todo
+Put this file as `.htaccess` into `assets` and `themes/PROJECT_NAME` to set caching flags
+```
+# Set up caching on media files for 1 week
+<IfModule mod_headers.c>
+<FilesMatch "\.(gif|jpg|jpeg|png|swf)$">
+    ExpiresDefault A604800
+    Header append Cache-Control "public"
+</FilesMatch>
+</IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 seconds"
+  ExpiresByType text/html "access plus 1 seconds"
+  ExpiresByType image/x-icon "access plus 2592000 seconds"
+  ExpiresByType image/gif "access plus 2592000 seconds"
+  ExpiresByType image/jpeg "access plus 2592000 seconds"
+  ExpiresByType image/png "access plus 2592000 seconds"
+  ExpiresByType text/css "access plus 604800 seconds"
+  ExpiresByType text/javascript "access plus 86400 seconds"
+  ExpiresByType application/x-javascript "access plus 86400 seconds"
+</IfModule>
+```
+
 ## Async loading of main js file 
-todo
+
+Except of `<script>` flags `defer` and `async` our namespace `window.SilverStripe` introduces simple `window.SilverStripe.loadScript` method of asynchronious loading scripts and styles, which was mentioned before. 
+
+Example
+
+```javascript
+  window.SilverStripe.loadScript(["{$ThemeDir}/javascript/component.js", "{$ThemeDir}/css/component.css"], function() {
+    console.log('all loaded now');
+  })
+```
+
 ## Preloader -  Css async loading 
-todo
+
+This technique is described above. 
+
 ## JavaScript helpers (only in dev)
 todo
 ## Grid and grid helpers 
