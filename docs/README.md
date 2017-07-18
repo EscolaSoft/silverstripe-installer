@@ -347,9 +347,13 @@ Example
   })
 ```
 
-## Preloader -  Css async loading 
+### Preloader -  Css async loading 
 
 This technique is described above. 
+
+### Minifiing images
+
+`gulp` task TODO
 
 ## JavaScript helpers (only in dev)
 todo
