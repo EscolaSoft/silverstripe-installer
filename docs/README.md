@@ -47,7 +47,7 @@ composer create-project -s dev qunabu/silverstripe-installer PROJECT_NAME
 
 3. Open `http://PROJECT_NAME.something` in the browser and follow default installation steps.
 4. Once installed run task `dev/tasks/SetEnvironmentTask` by calling `http://PROJECT_NAME.something/dev/tasks/SetEnvironmentTask`
-This task moves mysite/_config.php settings to _ss_enviroment.php
+This task moves mysite/_config.php settings to _ss_environment.php
 5. Create or copy project URL from qunabu gitlab git.qunabu.com. Likely url to you repository would be `git@git.qunabu.com:qunabuinteractive/PROJECT_NAME.git`
 6. Run following commands in main folder of your projects
 
