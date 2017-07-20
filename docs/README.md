@@ -47,7 +47,7 @@ composer create-project -s dev qunabu/silverstripe-installer PROJECT_NAME
 
 3. Open `http://PROJECT_NAME.something` in the browser and follow default installation steps.
 4. Once installed run task `dev/tasks/SetEnvironmentTask` by calling `http://PROJECT_NAME.something/dev/tasks/SetEnvironmentTask`
-This task moves mysite/_config.php settings to _ss_enviroment.php
+This task moves mysite/_config.php settings to _ss_environment.php
 5. Create or copy project URL from qunabu gitlab git.qunabu.com. Likely url to you repository would be `git@git.qunabu.com:qunabuinteractive/PROJECT_NAME.git`
 6. Run following commands in main folder of your projects
 
@@ -324,15 +324,52 @@ Example
 
 In this technique preloader is only visible in `live` mode, in `dev` mode all scripts and styles are loaded at once.   
 
-
 ## Live version (How to 100/100 Page Speed) 
-todo
+To get sitespeed at hightest level except of techniques above there are some additional ones below. 
 ## .htaccess files to set caching flags
-todo
+Put this file as `.htaccess` into `assets` and `themes/PROJECT_NAME` to set caching flags
+```
+# Set up caching on media files for 1 week
+<IfModule mod_headers.c>
+<FilesMatch "\.(gif|jpg|jpeg|png|swf)$">
+    ExpiresDefault A604800
+    Header append Cache-Control "public"
+</FilesMatch>
+</IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 seconds"
+  ExpiresByType text/html "access plus 1 seconds"
+  ExpiresByType image/x-icon "access plus 2592000 seconds"
+  ExpiresByType image/gif "access plus 2592000 seconds"
+  ExpiresByType image/jpeg "access plus 2592000 seconds"
+  ExpiresByType image/png "access plus 2592000 seconds"
+  ExpiresByType text/css "access plus 604800 seconds"
+  ExpiresByType text/javascript "access plus 86400 seconds"
+  ExpiresByType application/x-javascript "access plus 86400 seconds"
+</IfModule>
+```
+
 ## Async loading of main js file 
-todo
-## Preloader -  Css async loading 
-todo
+
+Except of `<script>` flags `defer` and `async` our namespace `window.SilverStripe` introduces simple `window.SilverStripe.loadScript` method of asynchronious loading scripts and styles, which was mentioned before. 
+
+Example
+
+```javascript
+  window.SilverStripe.loadScript(["{$ThemeDir}/javascript/component.js", "{$ThemeDir}/css/component.css"], function() {
+    console.log('all loaded now');
+  })
+```
+
+### Preloader -  Css async loading 
+
+This technique is described above. 
+
+### Minifiing images
+
+`gulp` task TODO
+
 ## JavaScript helpers (only in dev)
 todo
 ## Grid and grid helpers 
