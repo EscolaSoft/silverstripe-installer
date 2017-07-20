@@ -61,6 +61,21 @@ git push --all
 ```
 
 7. Now we're ready to start developinig our theme
+
+# Switching to exisitng project
+
+1. Add vhost like in installation guide (points 3 and 4)
+2. Clone the repository from `git.qunabu.com`, change directory to `PROJECT_NAME` and checkout the `develop` branch 
+
+```bash
+git clone git@git.qunabu.com:qunabuinteractive/PROJECT_NAME.git
+cd PROJECT_NAME
+git checkout develop 
+```
+
+3. Open `http://PROJECT_NAME.something` in the browser and follow default installation steps.
+4. Once installed run task `dev/tasks/SetEnvironmentTask` by calling `http://PROJECT_NAME.something/dev/tasks/SetEnvironmentTask`
+This task moves mysite/_config.php settings to _ss_enviroment.php
  
 # Qunabu boilerplate theme 
 1. In terminal go into theme dir
@@ -251,7 +266,7 @@ Qunabu Helpers introduce Dominant Color Image extenstion which returns main colo
 
 Straight forward technique of showing preloader 
 
-* preloader is defined and shown as inline css inside `<meta>` 
+* preloader is defined and shown as inline css inside `<meta>`. It covers the whole websitecd  which is unstyled since css are not loaded yet. 
 * preloader is hidden in `layout.css` one it is loaded before end of '</body>'
 
 This technique is built-in boilerplate. 
@@ -309,7 +324,7 @@ Example
 
 In this technique preloader is only visible in `live` mode, in `dev` mode all scripts and styles are loaded at once.   
 
-todo
+
 ## Live version (How to 100/100 Page Speed) 
 todo
 ## .htaccess files to set caching flags
