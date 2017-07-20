@@ -325,8 +325,10 @@ Example
 In this technique preloader is only visible in `live` mode, in `dev` mode all scripts and styles are loaded at once.   
 
 ## Live version (How to 100/100 Page Speed) 
+
 To get sitespeed at hightest level except of techniques above there are some additional ones below. 
-## .htaccess files to set caching flags
+
+### .htaccess files to set caching flags
 Put this file as `.htaccess` into `assets` and `themes/PROJECT_NAME` to set caching flags
 ```
 # Set up caching on media files for 1 week
@@ -368,12 +370,21 @@ This technique is described above.
 
 ### Minifiing images
 
-`gulp` task TODO
+`gulp` has two tasks
 
-## JavaScript helpers (only in dev)
+1. `gulp compress-images` that compress all images inside `themes/PROJECT_NAME/images`
+2. `gulp compress-images` that compress assets. *Beware* this tasks that hughe amount of resources but is essential to be lanuched once for a while. 
+
+## JavaScript helpers
+
+### SilverStripe variables
+
 todo
-## Grid and grid helpers 
-todo
+
+### Grid and grid helpers 
+
+In ES6 examples above is `Grid` helper which shows a grid so one can check if all elements fit.
+
 ## SCSS
 libsass 
 ### structure
