@@ -385,11 +385,47 @@ todo
 
 In ES6 examples above is `Grid` helper which shows a grid so one can check if all elements fit.
 
-## SCSS
-libsass 
-### structure
+## SCSS and CSS
+
+Task from gulp use Node.js bindings to libsass. There are thee major entry points 
+
+* `sass/layout.scss` which is a main file for all styles on the site.
+* `sass/typography` which is a main style for typography, which is 
+> * all definition of typograpu should be defined in this file 
+> * style that is used in [WYSYWIG editor](https://docs.silverstripe.org/en/3.0/reference/typography/)
+> * style that use `typography' general css class in the template 
+
+Example 
+```css
+/* typography.css */
+.typography h1, .typography h2 {
+  color: #F77;
+}
+```
+
+```html
+<!-- Page.ss -->
+<div class="typography">
+$Content
+</div>
+```
+
+> * 
+* `sass/editor.scss` [WYSIWYG Styles](https://docs.silverstripe.org/en/3/developer_guides/customising_the_admin_interface/typography/) lets you customise the style of content in the CMS.
+ 
+### Structure
+
 todo
-### responsive vars and mixins
+
+### Styleguide
+
+todo
+
+
+### Bootstrap Grid
+todo 
+https://v4-alpha.getbootstrap.com/layout/grid
+### Responsive 
 todo 
 ## Fluid vars (https://www.smashingmagazine.com/2016/05/fluid-typography/) 
 todo
@@ -397,15 +433,41 @@ todo
 todo
 # Additional modules 
 ## Backuper
-todo
+
+Experimental module that is resposible for two tasks
+1. Create and backup of database and assets folder 
+2. Ability to import exported database. 
+
+Does work only in `dev` mode
+
 ## HTMLBlocks
-todo
+
+Allows to inject HTML Blocks into .SS templates and HTMLContent as shortcode.
+Simple idea of managing reusable html parts in different sections of layout. 
+It gives panel admins to change reusable parts. 
+
+Example 
+
+1. In the panel create new HTML Block with id FooterContent 
+
+2. In footer put this code
+ 
+Footer.ss 
+```
+{$HTMLBlock('footer')}
+```
+
+3. Now you're able to manage content of that section from the panel 
+
+
 ## Sortlable filelds
 todo
 ## Gridfield. Add inline
 todo
 ## Gridfield. Edit inline 
 todo
+## Bulk upload
+
 ## Email helpers
 todo
 ## Has one field
