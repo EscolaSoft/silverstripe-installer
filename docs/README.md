@@ -391,7 +391,7 @@ Task from gulp use Node.js bindings to libsass. There are thee major entry point
 
 * `sass/layout.scss` which is a main file for all styles on the site.
 * `sass/typography` which is a main style for typography, which is 
-> * all definition of typograpu should be defined in this file 
+> * all definition of typography (fonts, colors, sizes, line-height, etc) should be defined in this file 
 > * style that is used in [WYSYWIG editor](https://docs.silverstripe.org/en/3.0/reference/typography/)
 > * style that use `typography' general css class in the template 
 
@@ -410,7 +410,6 @@ $Content
 </div>
 ```
 
-> * 
 * `sass/editor.scss` [WYSIWYG Styles](https://docs.silverstripe.org/en/3/developer_guides/customising_the_admin_interface/typography/) lets you customise the style of content in the CMS.
  
 ### Structure
