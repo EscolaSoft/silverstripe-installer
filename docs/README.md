@@ -373,17 +373,26 @@ This technique is described above.
 `gulp` has two tasks
 
 1. `gulp compress-images` that compress all images inside `themes/PROJECT_NAME/images`
-2. `gulp compress-images` that compress assets. *Beware* this tasks that hughe amount of resources but is essential to be lanuched once for a while. 
+2. `gulp compress-assets` that compress assets. *Beware* this tasks that hughe amount of resources but is essential to be lanuched once for a while. 
 
 ## JavaScript helpers
 
 ### SilverStripe variables
 
-todo
+Namespace SilverStripe contaians following settings 
+
+* `window.SilverStripe.settings.baseUrl` full base URL with protocol, port etc eg. 'http://sunsol2017.qunabu.com/';
+* `window.SilverStripe.settings.baseRelUrl` relative base URL, eg  '/';
+* `window.SilverStripe.settings.pageUrl` current page URI, eg. '/about-us/';
+* `window.SilverStripe.settings.themeDir` current theme main path, eg 'themes/sunsol2017';
+* `window.SilverStripe.isLive` Boolean value is site is in live mode;
+* `window.SilverStripe.isDev=true` Boolean value is site is in live mode;
 
 ### Grid and grid helpers 
 
-In ES6 examples above is `Grid` helper which shows a grid so one can check if all elements fit.
+All visual elements must fit into grid as they were designed. By default boilerplate is importing [boostrap 4 grid](https://v4-alpha.getbootstrap.com/layout/grid), which is fine with most of the cases.  
+
+In ES6 examples above is `Grid` helper which shows a grid so one can check if all elements fit, pressing `g` on keyboard toggles grid in backgroud, to provide a comfortable way of checking fitting of elements. 
 
 ## SCSS and CSS
 
@@ -414,18 +423,138 @@ $Content
  
 ### Structure
 
-todo
+Sass structure comes as follows, all new file should have underscore prefix, eg `_footer.scss`;
+
+```
+sass/layout.scss // main, entry file 
+sass/editor.scss // style for WYSIWYG editor
+sass/typography.scss // typography declaration used by WYSIWYG editor and components that display content  
+sass/components // folder where components should be kept, eg. _header.scss, _footer.scss, _navigation.scss
+sass/base // folder where all variables mixins and all abstract reusabe elements, eg. _mixins.scss, _vars.scss
+sass/pages // folder wheren specific page styles are declared, eg. _homePage.scss, _contactPage.scss
+```
 
 ### Styleguide
 
-todo
+Styleguide is essential and first source of truth when developing theme from design provided by designer. 
 
+* All possible font variation should be declared in `typography.scss` You can use only fonts from mixins provided. 
+example 
+```sass
+@mixin default-txt() {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 300;
+  line-height: 1.86;
+  letter-spacing: 0.4px;
+  color: $color_txt_default;
+  @include fluid-type(font-size, 14px, 17px);
+}
+```
+* All possible colors must be declated in  `base/_vars.scss` file 
+Example 
+```sass
+$color_white:#fff;
+$color_bg_lightgray:#f8f8f8;
+$color_txt_default:#9f9f9f;
+$color_yellow:#fccc07;
+$color_orange:#f9ab10;
+```
+* All vertical heights must be declated in  `base/_vars.scss` file. When definig vertical space between elements, it should be one from the list 
+Example 
+```sass
+$vertical_h1: 15px;
+$vertical_h2: 30px;
+$vertical_h3: 40px;
+$vertical_h4: 55px;
+$vertical_h5: 70px;
+$vertical_h6: 90px;
+$vertical_h7: 110px;
+```
 
 ### Bootstrap Grid
-todo 
-https://v4-alpha.getbootstrap.com/layout/grid
+
+#### Customising the grid 
+
+Bootrsap Grid give a straight forward way fo [customising grid by overwritting variables](https://v4-alpha.getbootstrap.com/layout/grid/#variables). Our grid is declared in  `sass/base/_bootstrap-config.scss` 
+
+Example config 
+```
+//FILE sass/base/_bootstrap-config.scss
+$grid-columns:      12;
+$grid-gutter-width-base: 30px;
+
+$grid-gutter-widths: (
+  xs: $grid-gutter-width-base, // 30px
+  sm: $grid-gutter-width-base, // 30px
+  md: $grid-gutter-width-base, // 30px
+  lg: $grid-gutter-width-base, // 30px
+  xl: $grid-gutter-width-base  // 30px
+)
+
+$grid-breakpoints: (
+  // Extra small screen / phone
+  xs: 0,
+  // Small screen / phone
+  sm: 576px,
+  // Medium screen / tablet
+  md: 768px,
+  // Large screen / desktop
+  lg: 992px,
+  // Extra large screen / wide desktop
+  xl: 1200px
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px
+);
+```
+
+#### Mixins 
+
+There are some [mixins](https://v4-alpha.getbootstrap.com/layout/grid/#mixins) provided by bootstrap that allows making custom css classes to work with grid. 
+
+Example (from boostrap docs) [see it in action rendered](https://jsbin.com/ruxona/edit?html,output).
+```sass
+.container {
+  max-width: 60em;
+  @include make-container();
+}
+.row {
+  @include make-row();
+}
+.content-main {
+  @include make-col-ready();
+
+  @media (max-width: 32em) {
+    @include make-col(6);
+  }
+  @media (min-width: 32.1em) {
+    @include make-col(8);
+  }
+}
+.content-secondary {
+  @include make-col-ready();
+
+  @media (max-width: 32em) {
+    @include make-col(6);
+  }
+  @media (min-width: 32.1em) {
+    @include make-col(4);
+  }
+}
+```
+
 ### Responsive 
-todo 
+
+By default our boilerplace responsive mixins for bootstrap [which are documented here](https://v4-alpha.getbootstrap.com/layout/overview/#responsive-breakpoints). Breakpoints are declatred in `sass/base/_bootstrap-config.scss`
+
+* `media-breakpoint-down(breakpoint)`
+* `media-breakpoint-up(breakpoint)`
+* `media-breakpoint-between(breakpoint-down, breakpoint-up)`
+ 
 ## Fluid vars (https://www.smashingmagazine.com/2016/05/fluid-typography/) 
 todo
 ## Styling login form 
