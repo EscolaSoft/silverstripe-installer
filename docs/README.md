@@ -632,6 +632,41 @@ Footer.ss
 
 ## Sortlable fields
 
+Simplest sorting can be achieved with [GridFieldOrderableRows](https://github.com/symbiote/silverstripe-gridfieldextensions/blob/master/docs/en/index.md#orderable-rows) in the following example
+
+Lets assume we have a Block with Logos we want to arrange. The following example allows to drag&drop elements in the gridfield.
+
+```php 
+class LogosBlock extends DataObject {
+        
+    private static $has_many = array("Logos" => "Logo");
+    
+    public function getCMSFields() {
+        $fields = parent::getCMSFields();
+        $gridfield = $fields->dataFieldByName("Logo");
+        $conf = $gridfield->getConfig();
+        $conf->addComponent(new GridFieldOrderableRows('Order'));
+        return $fields;
+    }
+}
+
+class Logo extends DataObject {
+    
+    private static $db = array(
+        "Order" => "Int"
+    );
+    
+    private static $default_sort = "Order";
+    
+    private static $has_one = array(
+      "LogosBlock" => "LogosBlock", 
+      "Image" => "Image"
+    );
+}
+
+```
+
+
 ## Gridfield. Add inline
 todo
 ## Gridfield. Edit inline 
