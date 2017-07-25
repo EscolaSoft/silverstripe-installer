@@ -643,7 +643,7 @@ class LogosBlock extends DataObject {
     
     public function getCMSFields() {
         $fields = parent::getCMSFields();
-        $gridfield = $fields->dataFieldByName("Logo");
+        $gridfield = $fields->dataFieldByName("Logos");
         $conf = $gridfield->getConfig();
         $conf->addComponent(new GridFieldOrderableRows('Order'));
         return $fields;
