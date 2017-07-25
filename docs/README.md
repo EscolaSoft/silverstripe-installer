@@ -622,8 +622,9 @@ Example
 
 2. In footer put this code
  
-Footer.ss 
+
 ```
+<%-- Footer.ss --%>
 {$HTMLBlock('footer')}
 ```
 
@@ -666,11 +667,86 @@ class Logo extends DataObject {
 
 ```
 
+## [ss-gridfield-utils](https://github.com/milkyway-multimedia/ss-gridfield-utils)
+### Gridfield. Add inline
+This components make GridField more user friendly, so you can add many DataObject on one admin page without useless clicks.
 
-## Gridfield. Add inline
-todo
-## Gridfield. Edit inline 
-todo
+Example allows adding many regions at once 
+
+```php
+class Region extends DataObject {
+    //...    
+    private static $summary_fields = array (
+        'Photo' => '',
+        'Title' => 'Title of region',
+        'Description' => 'Short description'
+    );
+    //...
+}
+
+class RegionsPage extends Page {
+
+    private static $has_many = array (
+        'Regions' => 'Region'
+    );
+
+    public function getCMSFields() {
+        $fields = parent::getCMSFields();
+		
+		$gridfield = GridField::create(
+            'Regions',
+            'Regions on this page',
+            $this->Regions(),
+            GridFieldConfig_RecordEditor::create());
+			
+		$config = $gridfield->getConfig();
+		$component = new Milkyway\SS\GridFieldUtils\AddNewInlineExtended($fragment = 'buttons-before-left', $title = 'Add Regions (inline)');
+       	$config->addComponent($component);
+		
+        $fields->addFieldToTab('Root.Regions', $gridfield);
+
+        return $fields;
+    }
+}
+```
+
+### Gridfield. Edit inline 
+
+The `Milkyway\SS\GridFieldUtils\EditableRow` component adds an expandable form to each row in the GridField, allowing you to edit records directly from the GridField. This makes the GridField act like a Tree, with nested GridFields working as expected.
+
+To add this component use the following snippets like in example above 
+```php
+/// ...
+    $gridfield->getConfig()->addComponent($component = new Milkyway\SS\GridFieldUtils\EditableRow($fields = null));
+/// ...	
+```
+
+### Problem with HTMLText and TinyMCE 
+
+Datatype HTMLText by default launch TinyMCE which won't work out of the box if there are more then one editor on one page. Solution is to add random ID to the form 
+
+Example 
+
+```
+class NewsletterNews extends DataObject {
+  static $db = array(
+    'Text'=>'HTMLText'
+  );
+  static $has_one = array(
+    'Newsletter'=>'Newsletter'
+  );
+
+  public function getCMSFields() {
+    $fields = parent::getCMSFields();
+    $fields->removeByName('NewsletterID');
+    /** @var HtmlEditorField $tinymce */
+    $tinymce = $fields->dataFieldByName('Text');
+    $tinymce->setAttribute('id', 'HiImRandomID'.rand(0,1000));
+    return $fields;
+  }
+}
+```
+
 ## Bulk upload
 
 ## Email helpers
@@ -690,7 +766,7 @@ SmtpMailer:
 todo
 ## User forms 
 todo
-## Google Maps fields
+## Google Maps field
 todo
 ## Blocks 
 todo
