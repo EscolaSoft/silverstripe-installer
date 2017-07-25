@@ -555,10 +555,52 @@ By default our boilerplace responsive mixins for bootstrap [which are documented
 * `media-breakpoint-up(breakpoint)`
 * `media-breakpoint-between(breakpoint-down, breakpoint-up)`
  
-## Fluid vars (https://www.smashingmagazine.com/2016/05/fluid-typography/) 
-todo
+## Fluid vars  
+
+Unlike responsive typography, which changes only at set breakpoints, [fluid typography](https://www.smashingmagazine.com/2016/05/fluid-typography/) resizes smoothly to match any device width. And this does not refers only to typography. Fluid vars are achived by sass mixins. 
+ 
+ * `@mixin fluid-type-min-max($properties, $min-vw, $max-vw, $min-value, $max-value)`
+ * `@mixin fluid-type($properties, $min-value, $max-value)`
+ 
+Examples
+
+```sass
+html {
+  @include fluid-type(font-size, 320px, 1366px, 14px, 18px);
+}
+```
+
+which sets two breakspoints for vieport width, max 1366px and min 320px. Results is 
+* when viewport width is 320px or smaller font-size is 14px;
+* when viewport width is 1366px or wider font-size is 18px;
+* when viewport width is between 1366px and 320px font-size is value between 18px and 14px;
+
+
+```sass
+// Multiple properties with same values
+h1 {
+  @include fluid-type(padding-bottom padding-top, 20em, 70em, 2em, 4em);
+}
+```
+
+`fluid-type` is shorthand that takes minimum and maximum viewport width from `sass/base/_bootstrap-config.scss`
+ 
+```sass
+@mixin fluid-type($properties, $min-value, $max-value) {
+  @include fluid-type-min-max($properties, map-get($grid-breakpoints, sm), map-get($grid-breakpoints, xxl), $min-value, $max-value)
+}
+```
+
+```
+body {
+  @include fluid-type(font-size, 14px, 17px);
+}
+```
+ 
 ## Styling login form 
-todo
+
+Tomek todo
+
 # Additional modules 
 ## Backuper
 
@@ -588,8 +630,8 @@ Footer.ss
 3. Now you're able to manage content of that section from the panel 
 
 
-## Sortlable filelds
-todo
+## Sortlable fields
+
 ## Gridfield. Add inline
 todo
 ## Gridfield. Edit inline 
@@ -597,7 +639,18 @@ todo
 ## Bulk upload
 
 ## Email helpers
-todo
+Allows to sent email with SMTP. Requires setup in  `mysite/_config/config.yml` eg
+
+```yml
+SmtpMailer:
+  host: mailing.gmail.com
+  user: XXX
+  password: XXX
+  encryption: tls
+  charset: UTF-8
+  #SMTPDedug: 4 //allows to debug connection 
+```  
+  
 ## Has one field
 todo
 ## User forms 
@@ -619,12 +672,27 @@ todo
 
 # Crazy issues 
 ## Polish sorting 
-todo
+
+Sorting in SilverStripe is by default made within sql database, to achive non-english sorting add this code to `mysite/_config/config.yml`
+
+```
+MySQLDatabase:
+  # You are advised to backup your tables if changing settings on an existing database
+  # `connection_charset` and `charset` should be equal, similarly so should `connection_collation` and `collation`
+  connection_charset: utf8
+  connection_collation: utf8_polish_ci
+  charset: utf8
+  collation: utf8_polish_ci
+```
+
 ## UserForms 
+
 ### UDF email for user 
-todo
+todo Tomek ( w którym pl yml co trzeba było dodać) 
+
 ### UDF custom fields validation 
-todo https://jqueryvalidation.org/
+todo Tomek - możesz to opisać https://jqueryvalidation.org/
+
 ## Simple REST API for AJAX calls
 todo
 
