@@ -667,7 +667,7 @@ class Logo extends DataObject {
 
 ```
 
-## [ss-gridfield-utils](https://github.com/milkyway-multimedia/ss-gridfield-utils)
+## GridField components [ss-gridfield-utils](https://github.com/milkyway-multimedia/ss-gridfield-utils)
 ### Gridfield. Add inline
 This components make GridField more user friendly, so you can add many DataObject on one admin page without useless clicks.
 
