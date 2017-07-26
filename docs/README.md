@@ -189,7 +189,7 @@ you should call `gulp deploy-live` which calls other `gulp` tasks
 
 Once site is in `LIVE` mode css and js files are loaded asynchroniusly. Look at the following code 
 
-```
+```html
 <script>
   window.SilverStripe.loadScript(["{$ThemeDir}/javascript/live/scripts.min.js", "{$ThemeDir}/css/layout.min.css"], function() {
     //console.log('all loaded');
@@ -478,7 +478,7 @@ $vertical_h7: 110px;
 Bootrsap Grid give a straight forward way fo [customising grid by overwritting variables](https://v4-alpha.getbootstrap.com/layout/grid/#variables). Our grid is declared in  `sass/base/_bootstrap-config.scss` 
 
 Example config 
-```
+```sass
 //FILE sass/base/_bootstrap-config.scss
 $grid-columns:      12;
 $grid-gutter-width-base: 30px;
@@ -591,7 +591,7 @@ h1 {
 }
 ```
 
-```
+```sass
 body {
   @include fluid-type(font-size, 14px, 17px);
 }
@@ -623,7 +623,7 @@ Example
 2. In footer put this code
  
 
-```
+```html
 <%-- Footer.ss --%>
 {$HTMLBlock('footer')}
 ```
@@ -727,7 +727,7 @@ Datatype HTMLText by default launch TinyMCE which won't work out of the box if t
 
 Example 
 
-```
+```php
 class NewsletterNews extends DataObject {
   static $db = array(
     'Text'=>'HTMLText'
@@ -971,7 +971,7 @@ Git pull on server, install everything set up `_ss_environment.php` and next git
 
 Sorting in SilverStripe is by default made within sql database, to achive non-english sorting add this code to `mysite/_config/config.yml`
 
-```
+```yml
 MySQLDatabase:
   # You are advised to backup your tables if changing settings on an existing database
   # `connection_charset` and `charset` should be equal, similarly so should `connection_collation` and `collation`
