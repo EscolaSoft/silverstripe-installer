@@ -747,7 +747,43 @@ class NewsletterNews extends DataObject {
 }
 ```
 
-## Bulk upload
+## [GridFieldBulkEditingTools](https://github.com/colymba/GridFieldBulkEditingTools). Bulk upload
+
+When uploading many images at once [BulkUpload](https://github.com/colymba/GridFieldBulkEditingTools/blob/master/bulkUpload/BULK_UPLOAD.md) is required. Other bulk tasks are available as well.
+
+Example 
+
+```php 
+class LogosBlock extends DataObject {
+        
+    private static $has_many = array("Logos" => "Logo");
+    
+    public function getCMSFields() {
+        $fields = parent::getCMSFields();
+        $gridfield = $fields->dataFieldByName("Logos");
+        $config = $gridfield->getConfig();
+        $gfbu = new GridFieldBulkUpload();
+        $gfbu->setUfSetup('setFolderName', 'logos'); // name of the folder where images should be uploaded. 
+        $config->addComponent($gfbu);
+        return $fields;
+    }
+}
+
+class Logo extends DataObject {
+    
+    private static $db = array(
+        "Order" => "Int"
+    );
+    
+    private static $default_sort = "Order";
+    
+    private static $has_one = array(
+      "LogosBlock" => "LogosBlock", 
+      "Image" => "Image"
+    );
+}
+
+```
 
 ## Email helpers
 Allows to sent email with SMTP. Requires setup in  `mysite/_config/config.yml` eg
@@ -763,23 +799,172 @@ SmtpMailer:
 ```  
   
 ## Has one field
-todo
-## User forms 
-todo
+
+It behaves like gridfield by for `has_one` relation. 
+
+Example
+
+```php
+
+class Address extends DataObject {
+//any delcaration here
+}
+
+class AddressesPage extends Page {
+
+  $has_one = array(
+    'MainAddress'=>'Address'
+  );
+
+  public function getCMSFields() {
+    $fields = parent::getCMSFields();
+    if($this->MainAddress()->exists()){
+      $fields->addFieldsToTab("Root.MainAddress", array(
+        ReadonlyField::create("add", "MainAddress", $this->MainAddress()->toString())
+      ));
+    }
+    $fields->removeByName("MainAddressID");
+    $fields->addFieldToTab("Root.MainAddress",
+      HasOneButtonField::create("MainAddress", "MainAddress", $this) //here!
+    );
+
+    return $fields;
+  }
+}
+```
+
+## [UserForms](https://github.com/silverstripe/silverstripe-userforms) 
+
+UserForms module provides a visual form builder for the SilverStripe CMS. No coding required to build forms such as contact pages.
+
 ## Google Maps field
-todo
-## Blocks 
-todo
+
+In `mysite/_config/config.yml` setup Google Maps API Key 
+
+```yml
+GoogleMapField:
+  default_options:
+    api_key: XXX
+```
+
+Example 
+
+```php
+class MapPoint extends DataObject {
+  static $db = array(
+    'Title'=>'Varchar',
+    'Latitude'=>'Decimal(9,6)',
+    'Longitude'=>'Decimal(9,6)',
+  );
+  public function getCMSFields() {
+    $fields = parent::getCMSFields();
+    $root->removeByName('Latitude');
+    $root->removeByName('Longitude');
+    $fields->addFieldToTab('Root.MapCenter', new GoogleMapField($this, 'Center of Map', array('api_key'=>'AIzaSyANH1lvL_a1y0-LhmTHug8w7WNDCtG-ScY')));
+    return $fields;
+  }
+}
+```
+
+
+## [Silverstripe-Content-Blocks](https://github.com/NobrainerWeb/Silverstripe-Content-Blocks) 
+
+This module gives you the option to create your content, in little blocks, instead of just one big content area.
+
+*This module is just an idea how some types of website should be built, Qunabu has own Blocks module that will be described soon.*
+
 ## Qunabu Helpers - 
-### Page extenstion (isDev)
-todo
-### Image extenstion (Dominant color)
-todo
+
+Qunabu helpers provide 
+
+* DateExtension Date Extension to resolve UTF8 issues with `FormatI18N` in non-english languages. `UTF8FormatI18N` as solution 
+* Greyscaled Image Extension 
+* HTMLTextExtension HTMLText Extension provide easy way to protect emails from bots with `ProtectEmails` method 
+* ImageHelperExtension Image Extension provide `DominantColor` method
+* PageHelperExtension provides
+> * isDev
+> * isLive
+> * getJavaScriptLibFiles
+* SetEnvironmentTask
+
 # Gitlab pipeline 
-## Pipeline
-todo
-## Deploy
-todo
+
+Gitlab piple provides an easy way to 
+# run tesy on git branches
+# deploy stage, test and live 
+
+## Pipeline example
+
+```yml
+#.gitlab-ci.yml in main folder
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  stage: test
+  script: echo "Running tests"
+
+build:
+  stage: build
+  script: echo "Building the app"
+
+deploy_stage:
+  stage: deploy
+  environment:
+    name: stage
+    url: http://PROJECT_NAME.qunabu.com
+  before_script:
+  # install ssh-agent
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  # run ssh-agent
+  - eval $(ssh-agent -s)
+  # add ssh key stored in SSH_PRIVATE_KEY variable to the agent store
+  # - $SSH_PRIVATE_KEY
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  # disable host key checking (NOTE: makes you susceptible to man-in-the-middle attacks)
+  # WARNING: use only in docker container, if you use it with shell you will overwrite your user's ssh config
+  - mkdir -p ~/.ssh
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+  script:
+  - echo "Deploy to staging server"
+  - ssh XXX@XXX.com 'exec /home/qunabu/webapps/PROJECT_NAME/build.sh'
+  only:
+  - develop
+```
+
+then you need to create a deploy script called `build.sh` in main folder and add it to git. 
+ 
+Example 
+
+```bash
+#!/usr/bin/env bash
+cd /home/qunabu/webapps/PROJECT_NAME
+git pull
+php56 /home/qunabu/bin/composer.phar update
+php56 /home/qunabu/webapps/PROJECT_NAME/framework/cli-script.php dev/build "?flush=1"
+```
+
+to make `cli-script.php dev/build "?flush=1"` from cli you need to set one manifest file in `_ss_environment.php`. 
+This file should be ignored by git so that amend should be done manually on stage server. 
+
+```php
+define('MANIFEST_FILE', TEMP_FOLDER . "/manifest-main");
+```
+
+In your gitlab project you must provide an [SSH_PRIVATE_KEY](https://docs.gitlab.com/ee/ci/ssh_keys/README.html) which you can log into server. 
+
+[SSH login without password](http://www.linuxproblem.org/art_9.html) 
+
+1. ssh keys we're going to use should not have password
+2. if you don't have a ssh key [generate one](https://help.github.com/articles/connecting-to-github-with-ssh/) 
+3. copy your public key id_rsa.pub to clipboard `pbcopy < ~/.ssh/id_rsa.pub`
+4. log into the stage server and add your key to `.ssh/authorized_keys`
+5. copy your private key id_rsa to clipboard `pbcopy < ~/.ssh/id_rsa`
+6. in gitlab in project settings under CI/CD Pipelines create new variable `SSH_PRIVATE_KEY` and paste your code there
+
+Git pull on server, install everything set up `_ss_environment.php` and next git push should be build automatically. 
 
 # Crazy issues 
 ## Polish sorting 
