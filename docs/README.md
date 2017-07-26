@@ -800,7 +800,7 @@ SmtpMailer:
   
 ## Has one field
 
-It behaves like gridfield by for `has_one` relation. 
+It behaves like gridfield but for `has_one` relation. 
 
 Example
 
@@ -890,8 +890,8 @@ Qunabu helpers provide
 # Gitlab pipeline 
 
 Gitlab piple provides an easy way to 
-# run tesy on git branches
-# deploy stage, test and live 
+* run tests on git branches
+* deploy stage, test and live 
 
 ## Pipeline example
 
