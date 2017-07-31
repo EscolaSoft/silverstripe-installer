@@ -11,6 +11,7 @@
     "silverstripe/secureassets": "^1.1",
 		"qunabu/silverstripe-theme":"dev-master",
 		"qunabu/silverstripe-htmlblocks":"dev-master",
+		"qunabu/silverstripe-blocks":"dev-master",
 		"qunabu/silverstripe-qunabu-helpers":"dev-master",
 		"qunabu/backuper":"dev-master",
 		"colymba/gridfield-bulk-editing-tools": "2.1.x-dev",
