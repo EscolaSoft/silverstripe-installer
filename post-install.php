@@ -39,7 +39,7 @@ function Delete($path)
 
     foreach ($files as $file)
     {
-      Delete(realpath($path) . '/' . $file);
+      Delete(realpath($path) .DIRECTORY_SEPARATOR. $file);
     }
 
     return rmdir($path);
@@ -55,7 +55,7 @@ function Delete($path)
 
 function getCurrentDirectory() {
   $path = dirname(__FILE__);
-  $position = strrpos($path,'/') + 1;
+  $position = strrpos($path,DIRECTORY_SEPARATOR) + 1;
   return substr($path,$position);
 }
 
