@@ -11,3 +11,5 @@ _ss_environment.php
 /vendor/
 
 silvertripe-cache/*
+
+composer.lock
