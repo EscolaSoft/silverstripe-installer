@@ -30,7 +30,8 @@
 	"extra": {
 	},
 	"config": {
-		"process-timeout": 600
+		"process-timeout": 600,
+		"discard-changes": true
 	},
 	"prefer-stable": false,
 	"prefer-dist": true,
