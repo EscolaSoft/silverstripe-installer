@@ -76,6 +76,52 @@ git checkout develop
 3. Open `http://PROJECT_NAME.something` in the browser and follow default installation steps.
 4. Once installed run task `dev/tasks/SetEnvironmentTask` by calling `http://PROJECT_NAME.something/dev/tasks/SetEnvironmentTask`
 This task moves mysite/_config.php settings to _ss_enviroment.php
+
+# Docker 
+
+*Note* when using docker there is no need to configurate local server and any additional packaging. Also there is no need to run install script;
+
+1. Install docker and docker-composer
+2. Create new or clone existing project
+3. In the main folder run 
+```bash
+docker-compose up -d
+```
+4. Configuration file should use `_ss_enviroment.php` settings, simplest example of `mysite/_config.php` for docker project is 
+
+```php
+//mysite/_config.php
+<?php
+
+global $project;
+$project = 'mysite';
+
+global $database;
+$database = '';
+
+require_once('conf/ConfigureFromEnv.php');
+```
+
+and `_ss_enviroment.php` should include 
+
+```php
+<?php
+define('SS_ENVIRONMENT_TYPE', 'dev');
+
+/* This defines a default database user */
+define('SS_DATABASE_SERVER', '127.0.0.1');
+define('SS_DATABASE_USERNAME', 'root');
+define('SS_DATABASE_PASSWORD', '');
+define('SS_DATABASE_NAME', 'silverstripe');
+global $_FILE_TO_URL_MAPPING;
+$_FILE_TO_URL_MAPPING['/var/www'] = 'http://localhost';
+```
+
+5. Bare installation of silverstripe should appear under http://localhost:3000
+6. To run dev task open docker shell 
+
+TO BE CONTINUED .... :) 
+
  
 # Qunabu boilerplate theme 
 1. In terminal go into theme dir
