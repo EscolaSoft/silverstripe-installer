@@ -81,7 +81,7 @@ This task moves mysite/_config.php settings to _ss_enviroment.php
 
 *Note* when using docker there is no need to configurate local server and any additional packaging. Also there is no need to run install script;
 
-1. Install docker and docker-composer
+1. Install docker and docker-composer or kill other dockers that use port 3000
 2. Create new or clone existing project
 3. In the main folder run 
 ```bash
@@ -116,11 +116,16 @@ define('SS_DATABASE_NAME', 'silverstripe');
 global $_FILE_TO_URL_MAPPING;
 $_FILE_TO_URL_MAPPING['/var/www'] = 'http://localhost';
 ```
+5. Find ID of your docker image container with `docker ps` and attach docker with command `docker exec -it 8b67077306c9 /bin/sh` where 8b67077306c9 should be replaced with your ID. 
+6. From docker shell run `composer install` which will install all composer dependencies 
+7. From docker shell run `cd themes/PROJECT_NAME` then `npm install`
+8. From docker shell in theme directory run `gulp`
+9. Bare installation of silverstripe should appear under http://localhost:3000
 
-5. Bare installation of silverstripe should appear under http://localhost:3000
-6. To run dev task open docker shell 
+* Use your files as it was standard php project. 
+* Run `git` commands *outside* docker shell 
+* Run `gulp`, `composer` and `npm` commands *inside* docker shell 
 
-TO BE CONTINUED .... :) 
 
  
 # Qunabu boilerplate theme 
