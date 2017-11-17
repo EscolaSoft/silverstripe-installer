@@ -9,4 +9,5 @@ services:
     restart: always
     volumes:
       - .:/var/www
+      - /var/lib/mysql
 
