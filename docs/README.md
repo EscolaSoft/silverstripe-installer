@@ -219,6 +219,75 @@ export default Grid;
 
  ```
  
+### Components 
+
+Components it's one of default behaviors. Each node elements that has `data-component` can be registered on each page reload. Example with Google Maps below describes functionality. 
+
+We need a document element that component should be attached to 
+
+```html
+<div id="gmap" style="height: 500px;" data-component="realization-map" data-apikey="<% if $SiteConfig.GoogleApiKey %>{$SiteConfig.GoogleApiKey}<% else %>XXXX<% end_if %>" data-lat="-34.397" data-lng"150.644" data-zoom="8"></div>
+```
+
+Component declaration 
+
+```javascript
+export default class MapComponent {
+    
+	/**
+	 * Create a map component.
+	 * @param {nodeElem} el - The element that component is attached to
+	 * @param {object} data - html data-* parsed
+	 * @param {object} settings - SilverStripe.settings
+	 */
+
+	constructor(el, data, settings) {
+
+		this.el = el;
+		this.data = data;
+		this.settings = settings;
+		this.map = null;
+
+		if (typeof google != 'undefined' && google.maps) {
+			this.init();
+		} else {
+			SilverStripe.loadScript(['https://maps.googleapis.com/maps/api/js?key=' + data.apikey], this.onGoogleLibraryLoaded.bind(this));
+		}
+	}
+
+	onGoogleLibraryLoaded() {        
+		this.init();
+	}
+
+	init() {
+		this.map = new google.maps.Map(this.el, {
+		  center: { lat: parseFloat(this.data.lat), lng: parseFloat(this.data.lng) },
+		  zoom: parseInt(this.data.zoom);
+		});
+
+	}
+```
+
+registering components 
+
+```javascript 
+import MapComponent from './components/MapComponent';
+//....
+window.SilverStripe.behaviors.Components = new Components();
+window.SilverStripe.behaviors.Components.register('realization-map', MapComponent); //name of data-component and class
+```
+
+Since now each node with `data-component="realization-map" will create a new instance of `MapComponent` class. 
+
+#### Comunication between components
+
+Methods `getById(id)` and `getByType(type)`
+
+
+### Barba.js page transitions
+
+By default page are transitioned with [BarbaJS](http://barbajs.org/). See `class PageTransitions` for more details and how to set custom transitions between pages. 
+ 
 ## Dev / Live versions 
 
 Dev is default mode when developing website. Once everything is ready to publish website should be switched to "live", which is crutial part of making website work fast. 
