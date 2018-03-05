@@ -1032,6 +1032,8 @@ build:
 
 deploy_stage:
   stage: deploy
+  variables:
+    GIT_STRATEGY: none
   environment:
     name: stage
     url: http://PROJECT_NAME.qunabu.com
