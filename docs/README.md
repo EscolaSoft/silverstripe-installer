@@ -469,6 +469,7 @@ Put this file as `.htaccess` into `assets` and `themes/PROJECT_NAME` to set cach
   ExpiresByType text/css "access plus 604800 seconds"
   ExpiresByType text/javascript "access plus 86400 seconds"
   ExpiresByType application/x-javascript "access plus 86400 seconds"
+  ExpiresByType image/svg+xml "access plus 2592000 seconds"
 </IfModule>
 ```
 
