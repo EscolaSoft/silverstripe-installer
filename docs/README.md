@@ -452,6 +452,7 @@ To get sitespeed at hightest level except of techniques above there are some add
 Put this file as `.htaccess` into `assets` and `themes/PROJECT_NAME` to set caching flags
 ```
 # Set up caching on media files for 1 week
+# Set up caching on media files for 1 week
 <IfModule mod_headers.c>
 <FilesMatch "\.(gif|jpg|jpeg|png|swf)$">
     ExpiresDefault A604800
@@ -459,17 +460,49 @@ Put this file as `.htaccess` into `assets` and `themes/PROJECT_NAME` to set cach
 </FilesMatch>
 </IfModule>
 <IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresDefault "access plus 1 seconds"
-  ExpiresByType text/html "access plus 1 seconds"
-  ExpiresByType image/x-icon "access plus 2592000 seconds"
-  ExpiresByType image/gif "access plus 2592000 seconds"
-  ExpiresByType image/jpeg "access plus 2592000 seconds"
-  ExpiresByType image/png "access plus 2592000 seconds"
-  ExpiresByType text/css "access plus 604800 seconds"
-  ExpiresByType text/javascript "access plus 86400 seconds"
-  ExpiresByType application/x-javascript "access plus 86400 seconds"
-  ExpiresByType image/svg+xml "access plus 2592000 seconds"
+	ExpiresActive On
+	ExpiresDefault "access plus 1 seconds"
+	ExpiresByType text/html "access plus 1 seconds"
+	ExpiresByType image/x-icon "access plus 2592000 seconds"
+	ExpiresByType image/gif "access plus 2592000 seconds"
+	ExpiresByType image/jpeg "access plus 2592000 seconds"
+	ExpiresByType image/png "access plus 2592000 seconds"
+	ExpiresByType text/css "access plus 604800 seconds"
+	ExpiresByType text/javascript "access plus 86400 seconds"
+	ExpiresByType application/x-javascript "access plus 86400 seconds"
+	ExpiresByType image/svg+xml "access plus 2592000 seconds"
+	ExpiresByType image/jpg "access plus 1 year"
+	ExpiresByType image/jpeg "access plus 1 year"
+	ExpiresByType image/gif "access plus 1 year"
+	ExpiresByType image/png "access plus 1 year"
+	ExpiresByType image/svg+xml "access plus 1 month"
+	ExpiresByType text/css "access plus 1 month"
+	ExpiresByType text/html "access plus 1 minute"
+	ExpiresByType text/plain "access plus 1 month"
+	ExpiresByType text/x-component "access plus 1 month"
+	ExpiresByType text/javascript "access plus 1 month"
+	ExpiresByType text/x-javascript "access plus 1 month"
+	ExpiresByType application/pdf "access plus 1 month"
+	ExpiresByType application/javascript "access plus 1 months"
+	ExpiresByType application/x-javascript "access plus 1 months"
+	ExpiresByType application/x-shockwave-flash "access plus 1 month"
+	ExpiresByType image/x-icon "access plus 1 year"
+	ExpiresByType application/json "access plus 0 seconds"
+	ExpiresByType application/ld+json "access plus 0 seconds"
+	ExpiresByType application/xml "access plus 0 seconds"
+	ExpiresByType text/xml "access plus 0 seconds"
+	ExpiresByType application/x-web-app-manifest+json "access plus 0 seconds"
+	ExpiresByType text/cache-manifest "access plus 0 seconds"
+	ExpiresByType audio/ogg "access plus 1 month"
+	ExpiresByType video/mp4 "access plus 1 month"
+	ExpiresByType video/ogg "access plus 1 month"
+	ExpiresByType video/webm "access plus 1 month"
+	ExpiresByType application/atom+xml "access plus 1 hour"
+	ExpiresByType application/rss+xml "access plus 1 hour"
+	ExpiresByType application/font-woff "access plus 1 month"
+	ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
+	ExpiresByType application/x-font-ttf "access plus 1 month"
+	ExpiresByType font/opentype "access plus 1 month"
 </IfModule>
 ```
 
